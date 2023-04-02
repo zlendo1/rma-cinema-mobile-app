@@ -3,6 +3,7 @@ package ba.unsa.etf.gamespirala
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +16,21 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var searchText: EditText
     private var gamesList: List<Game> = getGames()
 
+    private lateinit var homeButton: Button
+    private lateinit var detailsButton: Button
+
+    private var previousGame: Game? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        homeButton = findViewById(R.id.home_button)
+        detailsButton = findViewById(R.id.details_button)
+
+        detailsButton.setOnClickListener {
+            previousGame?.let { showGameDetails(it) }
+        }
 
         games = findViewById(R.id.game_list)
         games.layoutManager = LinearLayoutManager(
@@ -26,7 +39,11 @@ class HomeActivity : AppCompatActivity() {
             false
         )
 
-        gamesAdapter = GameListAdapter(arrayListOf()) { game -> showGameDetails(game) }
+        gamesAdapter = GameListAdapter(arrayListOf()) { game ->
+            showGameDetails(game)
+            previousGame = game
+        }
+
         games.adapter = gamesAdapter
         gamesAdapter.updateGames(gamesList)
 
