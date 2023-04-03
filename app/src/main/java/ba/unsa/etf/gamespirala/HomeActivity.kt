@@ -14,7 +14,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var games: RecyclerView
     private lateinit var gamesAdapter: GameListAdapter
     private lateinit var searchText: EditText
-    private var gamesList: List<Game> = getGames()
+    private var gamesList: List<Game> = getAll()
 
     private lateinit var homeButton: Button
     private lateinit var detailsButton: Button
