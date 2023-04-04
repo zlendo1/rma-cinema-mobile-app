@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.domain.Game
 
+import ba.unsa.etf.gamespirala.GameData
+
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var games: RecyclerView
     private lateinit var gamesAdapter: GameListAdapter
     private lateinit var searchText: EditText
-    private var gamesList: List<Game> = getAll()
+    private var gamesList: List<Game> = GameData.getAll()
 
     private lateinit var homeButton: Button
     private lateinit var detailsButton: Button

@@ -60,7 +60,7 @@ class GameDetailsActivity: AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val game = getDetails(extras.getString("game_title", ""))
+            val game = GameData.getDetails(extras.getString("game_title", ""))
 
             if (game != null) {
                 this.game = game
