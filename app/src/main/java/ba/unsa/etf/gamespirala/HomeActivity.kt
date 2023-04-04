@@ -40,8 +40,8 @@ class HomeActivity : AppCompatActivity() {
         )
 
         gamesAdapter = GameListAdapter(arrayListOf()) { game ->
-            showGameDetails(game)
             previousGame = game
+            showGameDetails(game)
         }
 
         games.adapter = gamesAdapter
