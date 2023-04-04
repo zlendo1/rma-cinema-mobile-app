@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.staticdata
+package ba.unsa.etf.gamespirala.domain
 
 abstract class UserImpression {
     abstract val username: String

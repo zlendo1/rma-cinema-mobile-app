@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.staticdata
+package ba.unsa.etf.gamespirala.domain
 
 data class UserRating(
     override val username: String,

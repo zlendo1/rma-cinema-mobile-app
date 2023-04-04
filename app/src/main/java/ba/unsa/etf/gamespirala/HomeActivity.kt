@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.gamespirala.staticdata.Game
+import ba.unsa.etf.gamespirala.domain.Game
 
 class HomeActivity : AppCompatActivity() {
 
