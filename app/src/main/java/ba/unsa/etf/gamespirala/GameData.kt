@@ -7,7 +7,5 @@ fun getAll(): List<Game> {
 }
 
 fun getDetails(title: String): Game? {
-    val games = getAll().filter { game -> game.title == title }
-
-    return if (games.isEmpty())  null else games[0]
+    return getAll().find { game -> game.title == title }
 }
