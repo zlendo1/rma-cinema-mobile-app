@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         games = findViewById(R.id.game_list)
         games.layoutManager = LinearLayoutManager(
             this,
-            LinearLayoutManager.VERTICAL,
+            LinearLayoutManager.HORIZONTAL,
             false
         )
 
