@@ -71,6 +71,8 @@ class GameDetailsActivity: AppCompatActivity() {
             finish()
         }
 
+        impressionsList = game.userImpressions
+
         impressionsAdapter = ImpressionListAdapter(arrayListOf())
         impressionsAdapter.updateImpressions(impressionsList)
     }
