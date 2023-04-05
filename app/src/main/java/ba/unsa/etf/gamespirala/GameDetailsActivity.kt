@@ -88,7 +88,7 @@ class GameDetailsActivity: AppCompatActivity() {
         val context: Context = cover.context
         val id = context
             .resources
-            .getIdentifier(game.coverImage, "drawable", context.packageName)
+            .getIdentifier(game.coverImage, "mipmap", context.packageName)
         cover.setImageResource(id)
     }
 
