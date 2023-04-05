@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.domain.Game
 
-import ba.unsa.etf.gamespirala.GameData
-
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var games: RecyclerView
@@ -18,7 +16,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var searchText: EditText
     private var gamesList: List<Game> = GameData.getAll()
 
-    private lateinit var homeButton: Button
     private lateinit var detailsButton: Button
 
     private var previousGame: Game? = null
@@ -27,9 +24,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        homeButton = findViewById(R.id.home_button)
         detailsButton = findViewById(R.id.details_button)
-
         detailsButton.setOnClickListener {
             previousGame?.let { showGameDetails(it) }
         }
@@ -42,7 +37,6 @@ class HomeActivity : AppCompatActivity() {
         )
 
         gamesAdapter = GameListAdapter(arrayListOf()) { game ->
-            previousGame = game
             showGameDetails(game)
         }
 
@@ -51,6 +45,15 @@ class HomeActivity : AppCompatActivity() {
 
         if (intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain") {
             handleSendText(intent)
+        }
+
+        val extra = intent.extras
+        extra?.let {
+            val game = GameData.getDetails(extra.getString("previous_game_title", ""))
+
+            game?.let {
+                previousGame = game
+            }
         }
     }
 

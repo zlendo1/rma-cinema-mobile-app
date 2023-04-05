@@ -74,6 +74,8 @@ class GameDetailsActivity: AppCompatActivity() {
         impressionsList = game.userImpressions
 
         impressionsAdapter = ImpressionListAdapter(arrayListOf())
+
+        impressions.adapter = impressionsAdapter
         impressionsAdapter.updateImpressions(impressionsList)
     }
 
@@ -95,7 +97,9 @@ class GameDetailsActivity: AppCompatActivity() {
     }
 
     private fun showHome() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            putExtra("previous_game_title", game.title)
+        }
 
         startActivity(intent)
     }
