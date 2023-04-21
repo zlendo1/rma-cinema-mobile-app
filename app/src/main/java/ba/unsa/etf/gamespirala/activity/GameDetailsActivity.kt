@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala
+package ba.unsa.etf.gamespirala.activity
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.unsa.etf.gamespirala.GameData
+import ba.unsa.etf.gamespirala.R
+import ba.unsa.etf.gamespirala.adapter.ImpressionListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
 import ba.unsa.etf.gamespirala.domain.UserImpression
 

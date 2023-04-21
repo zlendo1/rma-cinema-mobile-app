@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala
+package ba.unsa.etf.gamespirala.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ba.unsa.etf.gamespirala.GameData
+import ba.unsa.etf.gamespirala.R
+import ba.unsa.etf.gamespirala.adapter.GameListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
 
 class HomeActivity : AppCompatActivity() {
