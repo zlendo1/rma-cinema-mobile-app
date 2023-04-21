@@ -44,7 +44,7 @@ class GameDetailsActivity: AppCompatActivity() {
             showHome()
         }
 
-        title = findViewById(R.id.game_title_textview)
+        title = findViewById(R.id.item_title_textview)
         cover = findViewById(R.id.cover_imageview)
         platform = findViewById(R.id.platform_textview)
         date = findViewById(R.id.date_textview)

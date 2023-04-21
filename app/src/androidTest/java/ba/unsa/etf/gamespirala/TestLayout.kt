@@ -55,7 +55,7 @@ class TestLayout {
     @Test
     fun recyclerViewTest(){
         onView(withId(R.id.game_list)).perform(RecyclerViewActions.scrollToPosition<ViewHolder>(0)).check(matches(allOf(
-            hasDescendant(withId(R.id.game_title_textview)),
+            hasDescendant(withId(R.id.item_title_textview)),
             hasDescendant(withId(R.id.game_rating_textview)),
             hasDescendant(withId(R.id.game_release_date_textview)),
             hasDescendant(withId(R.id.game_platform_textview)),
@@ -63,11 +63,11 @@ class TestLayout {
         )))
 
         onView(withId(R.id.game_list)).perform(RecyclerViewActions.scrollToPosition<ViewHolder>(0)).check(
-            matches(hasDescendant(withId(R.id.game_title_textview)).also { isTopAlignedWith(
-                withChild(withId(R.id.game_title_textview))
+            matches(hasDescendant(withId(R.id.item_title_textview)).also { isTopAlignedWith(
+                withChild(withId(R.id.item_title_textview))
             ) }))
         onView(withId(R.id.game_list)).perform(RecyclerViewActions.scrollToPosition<ViewHolder>(0)).check(
-            matches(hasDescendant(withId(R.id.game_title_textview)).also { isCompletelyRightOf(
+            matches(hasDescendant(withId(R.id.item_title_textview)).also { isCompletelyRightOf(
                 withId(R.id.game_rating_textview)
             ) }))
         onView(withId(R.id.game_list)).perform(RecyclerViewActions.scrollToPosition<ViewHolder>(0)).check(
