@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.gamespirala.GameData
+import ba.unsa.etf.gamespirala.domain.GameData
 import ba.unsa.etf.gamespirala.R
 import ba.unsa.etf.gamespirala.adapter.GameListAdapter
 import ba.unsa.etf.gamespirala.domain.Game

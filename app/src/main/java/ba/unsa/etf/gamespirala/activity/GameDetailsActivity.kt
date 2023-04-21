@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.gamespirala.GameData
+import ba.unsa.etf.gamespirala.domain.GameData
 import ba.unsa.etf.gamespirala.R
 import ba.unsa.etf.gamespirala.adapter.ImpressionListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
