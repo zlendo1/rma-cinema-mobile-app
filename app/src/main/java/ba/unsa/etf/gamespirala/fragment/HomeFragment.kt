@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,13 +18,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var games: RecyclerView
     private lateinit var gamesAdapter: GameListAdapter
-    private lateinit var searchText: EditText
     private var gamesList: List<Game> = GameData.getAll()
 
     private var previousGame: Game? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         games = view.findViewById(R.id.game_list)
         games.layoutManager = LinearLayoutManager(
@@ -63,12 +61,6 @@ class HomeFragment : Fragment() {
         }
 
         startActivity(intent)
-    }
-
-    private fun handleSendText(intent: Intent) {
-        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            searchText.setText(it)
-        }
     }
 
 }

@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navgraph">
+    android:id="@+id/navgraph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ba.unsa.etf.gamespirala.fragment.HomeFragment"
+        android:label="HomeFragment" >
+        <argument
+            android:name="previousGameTitle"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="ba.unsa.etf.gamespirala.fragment.GameDetailsFragment"
+        android:label="GameDetailsFragment" />
 </navigation>
