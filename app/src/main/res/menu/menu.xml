@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/home" />
-    <item android:title="@string/detail" />
+    <item
+        android:id="@+id/homeFragment"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/gameDetailsFragment"
+        android:title="@string/detail" />
 </menu>
