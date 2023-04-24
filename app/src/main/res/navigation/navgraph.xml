@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navgraph"
     app:startDestination="@id/homeFragment">
@@ -8,12 +9,29 @@
         android:id="@+id/homeFragment"
         android:name="ba.unsa.etf.gamespirala.fragment.HomeFragment"
         android:label="HomeFragment" >
+
         <argument
             android:name="previousGameTitle"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue='' />
+
+        <action
+            android:id="@+id/action_home_to_gameDetails"
+            app:destination="@id/gameDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/gameDetailsFragment"
         android:name="ba.unsa.etf.gamespirala.fragment.GameDetailsFragment"
-        android:label="GameDetailsFragment" />
+        android:label="GameDetailsFragment" >
+
+        <action
+            android:id="@+id/action_gameDetails_to_home"
+            app:destination="@id/homeFragment" />
+
+        <argument
+            android:name="game_title"
+            app:argType="string"
+            android:defaultValue='' />
+    </fragment>
 </navigation>
