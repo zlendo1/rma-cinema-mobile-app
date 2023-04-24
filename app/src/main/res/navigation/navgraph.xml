@@ -10,14 +10,14 @@
         android:name="ba.unsa.etf.gamespirala.fragment.HomeFragment"
         android:label="HomeFragment" >
 
-        <argument
-            android:name="previousGameTitle"
-            app:argType="string"
-            android:defaultValue='' />
-
         <action
             android:id="@+id/action_home_to_gameDetails"
-            app:destination="@id/gameDetailsFragment" />
+            app:destination="@id/gameDetailsFragment" >
+
+            <argument
+                android:name="game_title"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -27,11 +27,12 @@
 
         <action
             android:id="@+id/action_gameDetails_to_home"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment" >
 
-        <argument
-            android:name="game_title"
-            app:argType="string"
-            android:defaultValue='' />
+            <argument
+                android:name="game_title"
+                app:argType="string" />
+        </action>
     </fragment>
+
 </navigation>
