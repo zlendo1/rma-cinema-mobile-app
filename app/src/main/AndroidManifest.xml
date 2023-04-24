@@ -12,9 +12,6 @@
         android:theme="@style/Theme.GameSpirala"
         tools:targetApi="31">
         <activity
-            android:name=".activity.GameDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
