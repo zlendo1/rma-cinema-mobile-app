@@ -65,8 +65,18 @@ class HomeFragment : Fragment() {
 
         bottomNav = activity?.findViewById(R.id.bottom_nav)
         bottomNav?.isEnabled = (previousGame != null)
-        bottomNav?.setOnClickListener {
-            previousGame?.let { bottomNav!!.isEnabled = true }
+        bottomNav?.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_home_to_gameDetails -> {
+                    previousGame?.let {
+                        showGameDetails(it)
+                    }
+
+                    return@setOnItemSelectedListener true
+                }
+
+                else -> return@setOnItemSelectedListener false
+            }
         }
 
         return view
