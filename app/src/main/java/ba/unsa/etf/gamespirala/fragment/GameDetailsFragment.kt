@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
@@ -50,8 +50,6 @@ class GameDetailsFragment : Fragment() {
             if (game != null) {
                 this.game = game
             }
-
-            populateDetails()
         } ?: run {
             throw IllegalArgumentException("No arguments provided")
         }
@@ -60,7 +58,7 @@ class GameDetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_game_detail, container, false)
 
-        navController = Navigation.findNavController(view)
+        navController = findNavController()
 
         title = view.findViewById(R.id.item_title_textview)
         cover = view.findViewById(R.id.cover_imageview)
@@ -99,6 +97,7 @@ class GameDetailsFragment : Fragment() {
             }
         }
 
+        populateDetails()
 
         return view
     }

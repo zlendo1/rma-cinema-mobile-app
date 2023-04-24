@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.domain.GameData
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        navController = Navigation.findNavController(view)
+        navController = findNavController()
 
         games = view.findViewById(R.id.game_list)
         games.layoutManager = LinearLayoutManager(
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         }
 
         arguments?.let {
-            val gameTitle = it.getString("previous_game_title", "")
+            val gameTitle = it.getString("game_title", "")
             val game = GameData.getDetails(gameTitle)
 
             game?.let {
