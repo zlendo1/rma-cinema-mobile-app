@@ -1,6 +1,7 @@
 package ba.unsa.etf.gamespirala.fragment
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.domain.GameData
 import ba.unsa.etf.gamespirala.R
+import ba.unsa.etf.gamespirala.activity.OrientationChange
+import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
 import ba.unsa.etf.gamespirala.adapter.GameListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,15 +29,16 @@ class HomeFragment : Fragment() {
 
     private var previousGame: Game? = null
 
-    private var bottomNav: BottomNavigationView? = null
     private lateinit var searchText: EditText
 
     private lateinit var navController: NavController
+    private lateinit var configuration: Configuration
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         navController = findNavController()
+        configuration = resources.configuration
 
         games = view.findViewById(R.id.game_list)
         games.layoutManager = LinearLayoutManager(
@@ -63,7 +68,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        bottomNav = activity?.findViewById(R.id.bottom_nav)
+        val bottomNav: BottomNavigationView? = activity?.findViewById(R.id.bottom_nav)
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.gameDetailsFragment -> {
@@ -86,7 +91,18 @@ class HomeFragment : Fragment() {
     private fun showGameDetails(game: Game) {
         val action = HomeFragmentDirections.actionHomeToDetails(game.title)
 
-        navController.navigate(action)
+        onOrientation(configuration,
+            {
+                navController.navigate(action)
+            },
+            {
+                val navHostFagmentDetails = requireActivity().supportFragmentManager
+                    .findFragmentById(R.id.nav_host_fragment_details) as NavHostFragment
+                val navControllerDetails = navHostFagmentDetails.navController
+
+                navControllerDetails.navigate(action)
+            }
+        )
     }
 
     private fun handleSendText(intent: Intent) {

@@ -1,6 +1,7 @@
 package ba.unsa.etf.gamespirala.fragment
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
+import ba.unsa.etf.gamespirala.activity.OrientationChange
+import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
 import ba.unsa.etf.gamespirala.adapter.ImpressionListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
 import ba.unsa.etf.gamespirala.domain.GameData
@@ -37,8 +41,8 @@ class GameDetailsFragment : Fragment() {
     private lateinit var impressionsAdapter: ImpressionListAdapter
     private lateinit var impressionsList: List<UserImpression>
 
-    private var bottomNav: BottomNavigationView? = null
     private lateinit var navController: NavController
+    private lateinit var configuration: Configuration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +63,7 @@ class GameDetailsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_game_detail, container, false)
 
         navController = findNavController()
+        configuration = resources.configuration
 
         title = view.findViewById(R.id.item_title_textview)
         cover = view.findViewById(R.id.cover_imageview)
@@ -84,7 +89,7 @@ class GameDetailsFragment : Fragment() {
         impressions.adapter = impressionsAdapter
         impressionsAdapter.updateImpressions(impressionsList)
 
-        bottomNav = activity?.findViewById(R.id.bottom_nav)
+        val bottomNav: BottomNavigationView? = activity?.findViewById(R.id.bottom_nav)
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {
@@ -122,6 +127,16 @@ class GameDetailsFragment : Fragment() {
     private fun showHome() {
         val action = GameDetailsFragmentDirections.actionDetailsToHome(game.title)
 
-        navController.navigate(action)
+        onOrientation(configuration,
+            {
+                navController.navigate(action)
+            },
+            {
+                val navHostFagmentHome = requireActivity().supportFragmentManager
+                    .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navControllerHome = navHostFagmentHome.navController
+
+                navControllerHome.navigate(action)
+            })
     }
 }
