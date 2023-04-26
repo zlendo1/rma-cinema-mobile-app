@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.domain.GameData
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.activity.OrientationChange
 import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
 import ba.unsa.etf.gamespirala.adapter.GameListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
@@ -96,9 +95,12 @@ class HomeFragment : Fragment() {
                 navController.navigate(action)
             },
             {
+                previousGame = game
+
                 val navHostFagmentDetails = requireActivity().supportFragmentManager
                     .findFragmentById(R.id.nav_host_fragment_details) as NavHostFragment
                 val navControllerDetails = navHostFagmentDetails.navController
+                navControllerDetails.setGraph(R.navigation.navgraph)
 
                 navControllerDetails.navigate(action)
             }

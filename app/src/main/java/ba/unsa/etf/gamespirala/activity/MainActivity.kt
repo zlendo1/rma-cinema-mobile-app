@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 val navHostFagmentDetails = supportFragmentManager
                     .findFragmentById(R.id.nav_host_fragment_details) as NavHostFragment
                 val navControllerDetails = navHostFagmentDetails.navController
+                navControllerDetails.setGraph(R.navigation.navgraph)
 
                 val firstGame = GameData.getAll().first()
                 val action = HomeFragmentDirections.actionHomeToDetails(firstGame.title)

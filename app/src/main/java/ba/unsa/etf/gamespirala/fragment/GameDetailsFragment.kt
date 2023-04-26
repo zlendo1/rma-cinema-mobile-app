@@ -10,12 +10,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.activity.OrientationChange
 import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
 import ba.unsa.etf.gamespirala.adapter.ImpressionListAdapter
 import ba.unsa.etf.gamespirala.domain.Game
@@ -131,12 +129,7 @@ class GameDetailsFragment : Fragment() {
             {
                 navController.navigate(action)
             },
-            {
-                val navHostFagmentHome = requireActivity().supportFragmentManager
-                    .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                val navControllerHome = navHostFagmentHome.navController
-
-                navControllerHome.navigate(action)
-            })
+            {}
+        )
     }
 }
