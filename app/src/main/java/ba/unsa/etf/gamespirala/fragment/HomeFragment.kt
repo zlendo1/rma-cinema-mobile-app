@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         val bottomNav: BottomNavigationView? = activity?.findViewById(R.id.bottom_nav)
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.gameDetailsFragment -> {
+                R.id.gameDetailsItem -> {
                     previousGame?.let {
                         showGameDetails(it)
                     } ?: run {

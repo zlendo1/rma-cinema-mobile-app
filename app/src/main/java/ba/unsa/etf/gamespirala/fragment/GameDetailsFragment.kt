@@ -90,7 +90,7 @@ class GameDetailsFragment : Fragment() {
         val bottomNav: BottomNavigationView? = activity?.findViewById(R.id.bottom_nav)
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.homeFragment -> {
+                R.id.homeItem -> {
                     showHome()
 
                     return@setOnItemSelectedListener true

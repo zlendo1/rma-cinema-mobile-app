@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navgraph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeItem">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/homeItem"
         android:name="ba.unsa.etf.gamespirala.fragment.HomeFragment"
         android:label="HomeFragment" >
 
         <action
             android:id="@+id/action_home_to_gameDetails"
-            app:destination="@id/gameDetailsFragment" >
+            app:destination="@id/gameDetailsItem" >
 
             <argument
                 android:name="game_title"
@@ -21,13 +21,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/gameDetailsFragment"
+        android:id="@+id/gameDetailsItem"
         android:name="ba.unsa.etf.gamespirala.fragment.GameDetailsFragment"
         android:label="GameDetailsFragment" >
 
         <action
             android:id="@+id/action_gameDetails_to_home"
-            app:destination="@id/homeFragment" >
+            app:destination="@id/homeItem" >
 
             <argument
                 android:name="game_title"
