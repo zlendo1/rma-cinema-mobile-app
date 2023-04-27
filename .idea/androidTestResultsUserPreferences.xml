@@ -17,6 +17,20 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-680463647">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="328415892">
           <value>
             <AndroidTestResultsTableState>
@@ -40,6 +54,62 @@
                   <entry key="RF8T11GB44Z" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung" value="120" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1010877390">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1010877421">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1010877452">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1612553974">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
                   <entry key="samsung&#10; SM-A325F" value="120" />
                 </map>
               </option>

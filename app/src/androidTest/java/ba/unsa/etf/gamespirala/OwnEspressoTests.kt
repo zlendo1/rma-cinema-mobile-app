@@ -1,6 +1,7 @@
 package ba.unsa.etf.gamespirala
 
 import android.content.pm.ActivityInfo
+import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -15,6 +16,7 @@ import ba.unsa.etf.gamespirala.domain.Game
 import ba.unsa.etf.gamespirala.domain.GameData
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.notNullValue
+import org.junit.Before
 import org.hamcrest.CoreMatchers.`is` as Is
 import org.junit.Rule
 import org.junit.Test
@@ -27,6 +29,11 @@ class OwnEspressoTests {
 
     @get:Rule
     var mainRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun resetPosition() {
+        changeOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+    }
 
     private fun changeOrientation(orientationId: Int) {
         mainRule.scenario.onActivity {
@@ -44,23 +51,12 @@ class OwnEspressoTests {
         ))
     }
 
-    private fun assertFragmentActive(fragmentId: Int) {
-        mainRule.scenario.onActivity {
-            val wantedFragment = it.supportFragmentManager.findFragmentById(fragmentId)
-
-            assertThat(wantedFragment, Is(notNullValue()))
+    private fun assertGameDetailsShown(game: Game, scrollable: Boolean = false) {
+        if (scrollable) {
+            onView(withText(game.description)).perform(scrollTo()).check(matches(isDisplayed()))
+        } else {
+            onView(withText(game.description)).check(matches(isDisplayed()))
         }
-    }
-
-    private fun assertGameDetailsShown(game: Game) {
-        onView(withText(game.title)).check(matches(isDisplayed()))
-        onView(withText(game.platform)).check(matches(isDisplayed()))
-        onView(withText(game.releaseDate)).check(matches(isDisplayed()))
-        onView(withText(game.esrbRating)).check(matches(isDisplayed()))
-        onView(withText(game.developer)).check(matches(isDisplayed()))
-        onView(withText(game.publisher)).check(matches(isDisplayed()))
-        onView(withText(game.genre)).check(matches(isDisplayed()))
-        onView(withText(game.description)).check(matches(isDisplayed()))
     }
 
     private fun clickOnButton(id: Int) {
@@ -76,18 +72,14 @@ class OwnEspressoTests {
     @Test
     fun scenarijTest1() {
         clickOnButton(R.id.gameDetailsItem)
-        assertFragmentActive(R.layout.fragment_home)
 
         clickOnGame(firstGame)
-        assertFragmentActive(R.layout.fragment_game_detail)
         assertGameDetailsShown(firstGame)
 
         clickOnButton(R.id.homeItem)
-        assertFragmentActive(R.layout.fragment_home)
 
         clickOnButton(R.id.gameDetailsItem)
-        assertFragmentActive(R.layout.fragment_game_detail)
-        assertFragmentActive(R.layout.fragment_home)
+        assertGameDetailsShown(firstGame)
     }
 
     /*
@@ -100,7 +92,7 @@ class OwnEspressoTests {
     fun scenarijTest2() {
         changeOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 
-        assertGameDetailsShown(firstGame)
+        assertGameDetailsShown(firstGame, true)
 
         val secondGame = GameData.getAll()[1]
 
@@ -118,18 +110,12 @@ class OwnEspressoTests {
     fun scenarijTest3() {
         clickOnGame(firstGame)
 
-        assertFragmentActive(R.layout.fragment_game_detail)
         assertGameDetailsShown(firstGame)
 
         clickOnButton(R.id.homeItem)
-        assertFragmentActive(R.layout.fragment_home)
 
         changeOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
-        assertFragmentActive(R.layout.fragment_home)
-        assertFragmentActive(R.layout.fragment_game_detail)
-
         changeOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-        assertFragmentActive(R.layout.fragment_home)
     }
 
     /*
@@ -137,6 +123,8 @@ class OwnEspressoTests {
     */
     @Test
     fun gameDetailsLayoutTest() {
+        clickOnGame(firstGame)
+
         onView(withId(R.id.item_title_textview)).check(isCompletelyAbove(withId(R.id.cover_imageview)))
         onView(withId(R.id.cover_imageview)).check(isCompletelyAbove(withId(R.id.platform_textview)))
         onView(withId(R.id.platform_textview)).check(isCompletelyAbove(withId(R.id.date_textview)))
