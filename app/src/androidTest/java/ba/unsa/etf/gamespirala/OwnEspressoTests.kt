@@ -1,7 +1,6 @@
 package ba.unsa.etf.gamespirala
 
 import android.content.pm.ActivityInfo
-import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -15,9 +14,7 @@ import ba.unsa.etf.gamespirala.activity.MainActivity
 import ba.unsa.etf.gamespirala.domain.Game
 import ba.unsa.etf.gamespirala.domain.GameData
 import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Before
-import org.hamcrest.CoreMatchers.`is` as Is
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
