@@ -12,7 +12,7 @@
         android:theme="@style/Theme.GameSpirala"
         tools:targetApi="31">
         <activity
-            android:name="ba.etf.rma23.projekat.activity.MainActivity"
+            android:name="ba.etf.rma23.projekat.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

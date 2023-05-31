@@ -10,7 +10,6 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ba.etf.rma23.projekat.activity.MainActivity
 import ba.etf.rma23.projekat.domain.Game
 import ba.etf.rma23.projekat.domain.GameData
 import ba.unsa.etf.gamespirala.R
