@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.fragment
+package ba.etf.rma23.projekat.fragment
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -13,11 +13,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.unsa.etf.gamespirala.domain.GameData
+import ba.etf.rma23.projekat.domain.GameData
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
-import ba.unsa.etf.gamespirala.adapter.GameListAdapter
-import ba.unsa.etf.gamespirala.domain.Game
+import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
+import ba.etf.rma23.projekat.adapter.GameListAdapter
+import ba.etf.rma23.projekat.domain.Game
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {

@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.adapter
+package ba.etf.rma23.projekat.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.domain.UserImpression
-import ba.unsa.etf.gamespirala.domain.UserRating
-import ba.unsa.etf.gamespirala.domain.UserReview
+import ba.etf.rma23.projekat.domain.UserImpression
+import ba.etf.rma23.projekat.domain.UserRating
+import ba.etf.rma23.projekat.domain.UserReview
 
 class ImpressionListAdapter(
     private var impressions: List<UserImpression>

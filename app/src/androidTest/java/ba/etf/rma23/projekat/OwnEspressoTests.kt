@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala
+package ba.etf.rma23.projekat
 
 import android.content.pm.ActivityInfo
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +10,10 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import ba.unsa.etf.gamespirala.activity.MainActivity
-import ba.unsa.etf.gamespirala.domain.Game
-import ba.unsa.etf.gamespirala.domain.GameData
+import ba.etf.rma23.projekat.activity.MainActivity
+import ba.etf.rma23.projekat.domain.Game
+import ba.etf.rma23.projekat.domain.GameData
+import ba.unsa.etf.gamespirala.R
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Before
 import org.junit.Rule

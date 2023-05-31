@@ -1,19 +1,19 @@
-package ba.unsa.etf.gamespirala.fragment
+package ba.etf.rma23.projekat.fragment
 
 import android.os.Bundle
 import androidx.navigation.NavDirections
 import ba.unsa.etf.gamespirala.R
 
-object HomeFragmentDirections {
-    fun actionHomeToDetails(gameTitle: String): NavDirections =
+object GameDetailsFragmentDirections {
+    fun actionDetailsToHome(previousGame: String): NavDirections =
         object : NavDirections {
             override val actionId: Int
-                get() = R.id.action_home_to_gameDetails
+                get() = R.id.action_gameDetails_to_home
 
             override val arguments: Bundle
                 get() {
                     val bundle = Bundle()
-                    bundle.putString("game_title", gameTitle)
+                    bundle.putString("game_title", previousGame)
 
                     return bundle
                 }

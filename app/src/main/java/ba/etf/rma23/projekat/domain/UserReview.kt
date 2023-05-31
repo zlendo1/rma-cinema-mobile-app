@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.domain
+package ba.etf.rma23.projekat.domain
 
 data class UserReview(
     override val username: String,

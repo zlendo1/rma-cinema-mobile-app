@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.adapter
+package ba.etf.rma23.projekat.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.domain.Game
+import ba.etf.rma23.projekat.domain.Game
 
 class GameListAdapter(
     private var games: List<Game>,

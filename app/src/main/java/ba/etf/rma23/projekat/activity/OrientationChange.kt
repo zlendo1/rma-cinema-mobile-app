@@ -1,4 +1,4 @@
-package ba.unsa.etf.gamespirala.activity
+package ba.etf.rma23.projekat.activity
 
 import android.content.res.Configuration
 

@@ -1,14 +1,14 @@
-package ba.unsa.etf.gamespirala.activity
+package ba.etf.rma23.projekat.activity
 
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
+import ba.etf.rma23.projekat.domain.GameData
+import ba.etf.rma23.projekat.fragment.HomeFragmentDirections
 import ba.unsa.etf.gamespirala.R
-import ba.unsa.etf.gamespirala.activity.OrientationChange.onOrientation
-import ba.unsa.etf.gamespirala.domain.GameData
-import ba.unsa.etf.gamespirala.fragment.HomeFragmentDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
