@@ -1,5 +1,8 @@
 package ba.etf.rma23.projekat.auxiliary
 
+import ba.etf.rma23.projekat.domain.Account
+import ba.etf.rma23.projekat.domain.Game
+
 fun ratingToEsrb(rating: Int): String {
     return when (rating) {
         1 -> "Three"
@@ -37,4 +40,8 @@ fun esrbToAge(esrbRating: String): Int {
 fun timestampToString(timestamp: Int): String {
     return java.time.format.DateTimeFormatter.ISO_INSTANT
         .format(java.time.Instant.ofEpochSecond(timestamp.toLong()))
+}
+
+fun isAgeSafe(account: Account, game: Game): Boolean {
+    return account.age >= esrbToAge(game.esrbRating)
 }
