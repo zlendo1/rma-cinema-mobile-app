@@ -1,6 +1,6 @@
 package ba.etf.rma23.projekat.data.repositories
 
-import ba.etf.rma23.projekat.auxiliary.esrbToAge
+import ba.etf.rma23.projekat.auxiliary.isAgeSafe
 import ba.etf.rma23.projekat.auxiliary.ratingToEsrb
 import ba.etf.rma23.projekat.auxiliary.timestampToString
 import ba.etf.rma23.projekat.data.repositories.result.*
@@ -29,15 +29,14 @@ object GamesRepository {
                 return@withContext games
             }
 
-            return@withContext emptyList<Game>()
+            return@withContext emptyList()
         }
     }
 
     suspend fun getGamesSafe(name: String): List<Game> {
         return withContext(Dispatchers.IO) {
-            val age = AccountRepository.account.age
-
-            games = getGamesByName(name).filter { game -> age >= esrbToAge(game.esrbRating) }
+            games = getGamesByName(name)
+                .filter { game -> isAgeSafe(AccountGamesRepository.account, game) }
 
             return@withContext games
         }
@@ -45,7 +44,7 @@ object GamesRepository {
 
     suspend fun sortGames(): List<Game> {
         return withContext(Dispatchers.IO) {
-            val favoriteGames = AccountRepository.getSavedGames()
+            val favoriteGames = AccountGamesRepository.getSavedGames()
 
             val predicate = { gameFirst:Game ->
                 favoriteGames.find { gameSecond ->
