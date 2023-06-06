@@ -1,6 +1,7 @@
 import  ba.etf.rma23.projekat.data.repositories.*
 import  ba.etf.rma23.projekat.data.*
 import  ba.etf.rma23.projekat.*
+import ba.etf.rma23.projekat.domain.*
 import kotlinx.coroutines.*
 
 import okhttp3.OkHttpClient
@@ -82,10 +83,10 @@ class RepositoriesUnitTest {
     fun a6_obrisiIgre() = runBlocking {
         var res=AccountGamesRepository.getSavedGames()
         assertThat(res.size,CoreMatchers.equalTo(2))
-        AccountGamesRepository.removeGame(res.get(0))
+        AccountGamesRepository.removeGame(res.get(0).id)
         res=AccountGamesRepository.getSavedGames()
         assertThat(res.size,CoreMatchers.equalTo(1))
-        AccountGamesRepository.removeGame(res.get(0))
+        AccountGamesRepository.removeGame(res.get(0).id)
         res=AccountGamesRepository.getSavedGames()
         assertThat(res.size,CoreMatchers.equalTo(0))
     }
