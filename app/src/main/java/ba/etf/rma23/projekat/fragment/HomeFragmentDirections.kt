@@ -5,7 +5,7 @@ import androidx.navigation.NavDirections
 import ba.unsa.etf.gamespirala.R
 
 object HomeFragmentDirections {
-    fun actionHomeToDetails(gameTitle: String): NavDirections =
+    fun actionHomeToDetails(gameId: Int): NavDirections =
         object : NavDirections {
             override val actionId: Int
                 get() = R.id.action_home_to_gameDetails
@@ -13,7 +13,7 @@ object HomeFragmentDirections {
             override val arguments: Bundle
                 get() {
                     val bundle = Bundle()
-                    bundle.putString("game_title", gameTitle)
+                    bundle.putInt("game_id", gameId)
 
                     return bundle
                 }

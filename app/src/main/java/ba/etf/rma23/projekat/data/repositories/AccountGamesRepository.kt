@@ -54,7 +54,7 @@ object AccountGamesRepository {
 
     suspend fun getGameById(id: Int): Game? {
         return withContext(Dispatchers.IO) {
-            val response = AccountApiConfig.retrofit.getGameById(id)
+            val response = AccountApiConfig.retrofit.getGameById(getHash(), id)
 
             if (response.isSuccessful) {
                 val result = response.body()!!
@@ -85,7 +85,7 @@ object AccountGamesRepository {
                     "{\"game\": {\"igdb_id\": \"${game.id}\", \"name\": \"${game.title}\"}}"
                 )
 
-                AccountApiConfig.retrofit.postGame(body)
+                AccountApiConfig.retrofit.postGame(getHash(), body)
 
                 return@withContext game
             } catch (e: Exception) {
@@ -97,7 +97,7 @@ object AccountGamesRepository {
     suspend fun removeGame(id: Int): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                AccountApiConfig.retrofit.deleteGameById(id)
+                AccountApiConfig.retrofit.deleteGameById(getHash(), id)
 
                 return@withContext true
             } catch (e: Exception) {

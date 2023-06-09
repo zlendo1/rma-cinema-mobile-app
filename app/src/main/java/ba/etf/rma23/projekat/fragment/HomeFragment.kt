@@ -13,18 +13,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ba.etf.rma23.projekat.domain.GameData
 import ba.unsa.etf.gamespirala.R
 import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
 import ba.etf.rma23.projekat.adapter.GameListAdapter
+import ba.etf.rma23.projekat.auxiliary.getGameById
 import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
 import ba.etf.rma23.projekat.data.repositories.GamesRepository
 import ba.etf.rma23.projekat.domain.Game
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
 
@@ -67,8 +64,12 @@ class HomeFragment : Fragment() {
         }
 
         arguments?.let {
-            val gameTitle = it.getString("game_title", "")
-            val game = GameData.getDetails(gameTitle)
+            val gameId = it.getInt("game_id", -1)
+            var game: Game?
+
+            runBlocking {
+                game = getGameById(gameId)
+            }
 
             game?.let {
                 previousGame = game
@@ -96,7 +97,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showGameDetails(game: Game) {
-        val action = HomeFragmentDirections.actionHomeToDetails(game.title)
+        val action = HomeFragmentDirections.actionHomeToDetails(game.id)
 
         onOrientation(configuration,
             {

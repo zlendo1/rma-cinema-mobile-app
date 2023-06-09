@@ -17,15 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
 import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
 import ba.etf.rma23.projekat.adapter.ImpressionListAdapter
+import ba.etf.rma23.projekat.auxiliary.getGameById
 import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
 import ba.etf.rma23.projekat.domain.Game
-import ba.etf.rma23.projekat.domain.GameData
 import ba.etf.rma23.projekat.domain.UserImpression
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class GameDetailsFragment : Fragment() {
 
@@ -54,11 +51,15 @@ class GameDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            val gameTitle = it.getString("game_title", "")
-            val game = GameData.getDetails(gameTitle)
+            val gameId = it.getInt("game_id", -1)
+            var game: Game?
 
-            if (game != null) {
-                this.game = game
+            runBlocking {
+                game = getGameById(gameId)
+            }
+
+            game?.let {
+                this.game = game as Game
             }
         } ?: run {
             throw IllegalArgumentException("No arguments provided")
@@ -138,7 +139,7 @@ class GameDetailsFragment : Fragment() {
     }
 
     private fun showHome() {
-        val action = GameDetailsFragmentDirections.actionDetailsToHome(game.title)
+        val action = GameDetailsFragmentDirections.actionDetailsToHome(game.id)
 
         onOrientation(configuration,
             {
@@ -149,10 +150,9 @@ class GameDetailsFragment : Fragment() {
     }
 
     private fun isFavorite(game: Game): Boolean {
-        val scope = CoroutineScope(Job() + Dispatchers.Main)
-        var result: Boolean = false
+        var result: Boolean
 
-        scope.launch {
+        runBlocking {
             result = AccountGamesRepository.getGameById(game.id) != null
         }
 
@@ -160,9 +160,7 @@ class GameDetailsFragment : Fragment() {
     }
 
     private fun favoriteGameSet() {
-        val scope = CoroutineScope(Job() + Dispatchers.Main)
-
-        scope.launch {
+        runBlocking {
             if (favoriteSwitch.isChecked) {
                 if (!AccountGamesRepository.removeGame(game.id)) {
                     throw Exception("Game not properly removed at details switch")

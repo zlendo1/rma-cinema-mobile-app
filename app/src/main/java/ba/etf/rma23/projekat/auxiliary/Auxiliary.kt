@@ -1,7 +1,9 @@
 package ba.etf.rma23.projekat.auxiliary
 
+import ba.etf.rma23.projekat.data.repositories.GamesRepository
 import ba.etf.rma23.projekat.domain.Account
 import ba.etf.rma23.projekat.domain.Game
+import kotlinx.coroutines.*
 
 fun ratingToEsrb(rating: Int): String {
     return when (rating) {
@@ -44,4 +46,14 @@ fun timestampToString(timestamp: Long): String {
 
 fun isAgeSafe(account: Account, game: Game): Boolean {
     return account.age >= esrbToAge(game.esrbRating)
+}
+
+suspend fun getGameById(id: Int): Game? = withContext(Dispatchers.IO) {
+    var game: Game? = null
+
+    GamesRepository.getGameById(id)?.let {
+        game = GamesRepository.resultToGame(listOf(it)).first()
+    }
+
+    return@withContext game
 }

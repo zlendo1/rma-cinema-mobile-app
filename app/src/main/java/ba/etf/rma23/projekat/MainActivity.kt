@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 navControllerDetails.setGraph(R.navigation.navgraph)
 
                 val firstGame = GameData.getAll().first()
-                val action = HomeFragmentDirections.actionHomeToDetails(firstGame.title)
+                val action = HomeFragmentDirections.actionHomeToDetails(firstGame.id)
 
                 navControllerDetails.navigate(action)
             }
