@@ -7,6 +7,8 @@ import ba.etf.rma23.projekat.domain.Game
 import ba.unsa.etf.gamespirala.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.RequestBody
 
 object AccountGamesRepository {
 
@@ -74,22 +76,30 @@ object AccountGamesRepository {
 
     suspend fun saveGame(game: Game): Game? {
         return withContext(Dispatchers.IO) {
-            val gameQuery = GameResultAccount(game.id, game.title)
-            val response = AccountApiConfig.retrofit.postGame(gameQuery).execute()
+            try {
+                val body = RequestBody.create(
+                    MediaType.get("application/json; chatset=utf-8"),
+                    "{\"game\": {\"igdb_id\": \"${game.id}\", \"name\": \"${game.title}\"}}"
+                )
 
-            if (response.isSuccessful) {
+                AccountApiConfig.retrofit.postGame(body)
+
                 return@withContext game
+            } catch (e: Exception) {
+                return@withContext null
             }
-
-            return@withContext null
         }
     }
 
     suspend fun removeGame(id: Int): Boolean {
         return withContext(Dispatchers.IO) {
-            val response = AccountApiConfig.retrofit.deleteGameById(id).execute()
+            try {
+                AccountApiConfig.retrofit.deleteGameById(id)
 
-            return@withContext response.isSuccessful
+                return@withContext true
+            } catch (e: Exception) {
+                return@withContext false
+            }
         }
     }
 
@@ -121,7 +131,7 @@ object AccountGamesRepository {
                 )
             }
 
-            return@withContext emptyList()
+            return@withContext games
         }
     }
 

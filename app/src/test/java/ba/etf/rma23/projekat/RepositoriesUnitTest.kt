@@ -1,3 +1,5 @@
+package ba.etf.rma23.projekat
+
 import  ba.etf.rma23.projekat.data.repositories.*
 import  ba.etf.rma23.projekat.data.*
 import  ba.etf.rma23.projekat.*
@@ -32,7 +34,7 @@ class RepositoriesUnitTest {
 
     @Test
     fun a0_pripremiPocetak() = runBlocking {
-        AccountGamesRepository.setHash("ca0ee672-440b-45b2-8a12-75b80f4fbdd3")
+        //AccountGamesRepository.setHash("ca0ee672-440b-45b2-8a12-75b80f4fbdd3")
         obrisi()
     }
 

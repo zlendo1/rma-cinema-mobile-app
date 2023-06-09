@@ -1,8 +1,7 @@
 package ba.etf.rma23.projekat.data.repositories
 
 import ba.etf.rma23.projekat.data.repositories.result.GameResultAccount
-import okhttp3.ResponseBody
-import retrofit2.Call
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -19,16 +18,16 @@ interface AccountApi {
         @Path("aid") aid: String = AccountGamesRepository.account.acHash
     ): Response<List<GameResultAccount>>
 
-    @DELETE("account/{aid}/games/{gid}")
+    @DELETE("account/{aid}/game/{gid}")
     suspend fun deleteGameById(
         @Path("gid") id: Int,
         @Path("aid") aid: String = AccountGamesRepository.account.acHash
-    ): Call<ResponseBody>
+    )
 
-    @POST("account/{aid}/games")
+    @POST("account/{aid}/game")
     suspend fun postGame(
-        @Body game: GameResultAccount,
+        @Body body: RequestBody,
         @Path("aid") aid: String = AccountGamesRepository.account.acHash
-    ): Call<ResponseBody>
+    )
 
 }

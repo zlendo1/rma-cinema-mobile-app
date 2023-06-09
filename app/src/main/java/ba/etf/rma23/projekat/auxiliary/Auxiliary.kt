@@ -37,9 +37,9 @@ fun esrbToAge(esrbRating: String): Int {
     }
 }
 
-fun timestampToString(timestamp: Int): String {
+fun timestampToString(timestamp: Long): String {
     return java.time.format.DateTimeFormatter.ISO_INSTANT
-        .format(java.time.Instant.ofEpochSecond(timestamp.toLong()))
+        .format(java.time.Instant.ofEpochSecond(timestamp))
 }
 
 fun isAgeSafe(account: Account, game: Game): Boolean {

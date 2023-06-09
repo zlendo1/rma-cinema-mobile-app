@@ -63,7 +63,7 @@ object GamesRepository {
 
     private fun bodyBuilder(content: String): RequestBody
         = RequestBody.create(
-            MediaType.get("text/plain; chatset=utf-8"), "$content; fields *"
+            MediaType.get("text/plain; chatset=utf-8"), "$content; fields *;"
         )
 
     suspend fun getGameById(id: Int): GameResult?
@@ -110,28 +110,28 @@ object GamesRepository {
 
             for (it in gameResults) {
                 val id = it.id
-                val title = it.name
-                val platform = getPlatformById(it.platforms.first())?.abbreviation!!
-                val releaseDate = timestampToString(it.first_releaseDate)
-                val rating = it.rating
-                val coverImage = getCoverById(it.cover)?.url!!
-                val genre = getGenreById(it.genres.first())?.name!!
-                val description = it.summary
+                val title: String = it.name
+                val platform: String = it.platforms?.let { it1 -> getPlatformById(it1.first())?.abbreviation } ?: ""
+                val releaseDate: String = it.first_release_date?.let { it1 -> timestampToString(it1) } ?: ""
+                val rating: Double = it.rating ?: 0.0
+                val coverImage: String = it.cover?.let { it1 -> getCoverById(it1)?.url } ?: ""
+                val genre: String = it.genres?.let { it1 -> getGenreById(it1.first())?.name } ?: ""
+                val description: String = it.summary ?: ""
 
                 val ageRatings: ArrayList<AgeRatingResult> = arrayListOf()
 
-                for (it2 in it.age_ratings) {
-                    ageRatings.add(getAgeRatingById(it2)!!)
+                it.age_ratings?.forEach { it1 ->
+                    ageRatings.add(getAgeRatingById(it1)!!)
                 }
 
-                val ageRatingResultNeeded = ageRatings.find { r -> r.rating == 1 || r.rating == 2 }
+                val ageRatingResultNeeded = ageRatings.find { r -> r.category in 1..2 }
 
                 val esrbRating = ratingToEsrb(ageRatingResultNeeded?.rating ?: 0)
 
                 val involvedCompanies: ArrayList<InvolvedCompanyResult> = arrayListOf()
 
-                for (it2 in it.involved_companies) {
-                    involvedCompanies.add(getInvolvedCompanyById(it2)!!)
+                it.involved_companies?.forEach { it1 ->
+                    involvedCompanies.add(getInvolvedCompanyById(it1)!!)
                 }
 
                 val developerResult = involvedCompanies.find { r -> r.developer }
