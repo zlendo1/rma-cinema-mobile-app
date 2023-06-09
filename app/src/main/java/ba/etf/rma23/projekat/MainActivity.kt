@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
+import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
 import ba.etf.rma23.projekat.domain.GameData
 import ba.etf.rma23.projekat.fragment.HomeFragmentDirections
 import ba.unsa.etf.gamespirala.R
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AccountGamesRepository.setAge(18)
 
         updateOrientationState(resources.configuration)
     }

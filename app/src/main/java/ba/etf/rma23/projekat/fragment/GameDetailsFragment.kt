@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -16,10 +17,15 @@ import androidx.recyclerview.widget.RecyclerView
 import ba.unsa.etf.gamespirala.R
 import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
 import ba.etf.rma23.projekat.adapter.ImpressionListAdapter
+import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
 import ba.etf.rma23.projekat.domain.Game
 import ba.etf.rma23.projekat.domain.GameData
 import ba.etf.rma23.projekat.domain.UserImpression
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class GameDetailsFragment : Fragment() {
 
@@ -34,6 +40,8 @@ class GameDetailsFragment : Fragment() {
     private lateinit var publisher: TextView
     private lateinit var genre: TextView
     private lateinit var description: TextView
+
+    private lateinit var favoriteSwitch: Switch
 
     private lateinit var impressions: RecyclerView
     private lateinit var impressionsAdapter: ImpressionListAdapter
@@ -72,6 +80,13 @@ class GameDetailsFragment : Fragment() {
         publisher = view.findViewById(R.id.publisher_textview)
         genre = view.findViewById(R.id.genre_textview)
         description = view.findViewById(R.id.description_textview)
+
+        favoriteSwitch = view.findViewById(R.id.favorite_switch)
+        favoriteSwitch.isChecked = isFavorite(game)
+
+        favoriteSwitch.setOnClickListener {
+            favoriteGameSet()
+        }
 
         impressions = view.findViewById(R.id.impressions_list)
         impressions.layoutManager = LinearLayoutManager(
@@ -131,5 +146,36 @@ class GameDetailsFragment : Fragment() {
             },
             {}
         )
+    }
+
+    private fun isFavorite(game: Game): Boolean {
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        var result: Boolean = false
+
+        scope.launch {
+            result = AccountGamesRepository.getGameById(game.id) != null
+        }
+
+        return result
+    }
+
+    private fun favoriteGameSet() {
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+        scope.launch {
+            if (favoriteSwitch.isChecked) {
+                if (!AccountGamesRepository.removeGame(game.id)) {
+                    throw Exception("Game not properly removed at details switch")
+                }
+
+                favoriteSwitch.isChecked = false
+            } else {
+                if (AccountGamesRepository.saveGame(game) == null) {
+                    throw Exception("Game not properly added at details switch")
+                }
+
+                favoriteSwitch.isChecked = true
+            }
+        }
     }
 }

@@ -14,34 +14,28 @@ object AccountGamesRepository {
 
     var account: Account = Account(BuildConfig.ACCOUNT_API_HASH, "zlendo1@etf.unsa.ba", 0)
 
-    suspend fun setHash(accountHash: String): Boolean {
-        return withContext(Dispatchers.IO) {
-            if (accountHash.isEmpty()) {
-                return@withContext true
-            }
-
-            account.acHash = accountHash
-
-            return@withContext true
+    fun setHash(accountHash: String): Boolean {
+        if (accountHash.isEmpty()) {
+            return false
         }
+
+        account.acHash = accountHash
+
+        return true
     }
 
-    suspend fun getHash(): String {
-        return withContext(Dispatchers.IO) {
-            return@withContext account.acHash
-        }
+    fun getHash(): String {
+        return account.acHash
     }
 
-    suspend fun setAge(age: Int): Boolean {
-        return withContext(Dispatchers.IO) {
-            if (age < 3 || age > 100) {
-                return@withContext false
-            }
-
-            account.age = age
-
-            return@withContext true
+    fun setAge(age: Int): Boolean {
+        if (age < 3 || age > 100) {
+            return false
         }
+
+        account.age = age
+
+        return true
     }
 
     suspend fun getSavedGames(): List<Game> {
@@ -49,28 +43,37 @@ object AccountGamesRepository {
             val response = AccountApiConfig.retrofit.getGames()
 
             if (response.isSuccessful) {
-                val result = response.body()
+                val result = response.body()!!
 
-                if (!result.isNullOrEmpty()) {
-                    return@withContext resultToGame(result)
-                }
+                return@withContext resultToGame(result)
             }
 
             return@withContext emptyList()
         }
     }
 
-    suspend fun getGamesContainingString(query: String): List<Game> {
+    suspend fun getGameById(id: Int): Game? {
         return withContext(Dispatchers.IO) {
-            val response = AccountApiConfig.retrofit.getGamesByName(query)
+            val response = AccountApiConfig.retrofit.getGameById(id)
 
             if (response.isSuccessful) {
-                val body = response.body()!!
+                val result = response.body()!!
+                val games = resultToGame(result)
 
-                return@withContext resultToGame(body)
+                if (games.isNotEmpty()) {
+                    return@withContext games.first()
+                }
             }
 
-            return@withContext emptyList()
+            return@withContext null
+        }
+    }
+
+    suspend fun getGamesContainingString(query: String): List<Game> {
+        return withContext(Dispatchers.IO) {
+            val allGames = getSavedGames()
+
+            return@withContext allGames.filter { game -> game.title.contains(query) }
         }
     }
 

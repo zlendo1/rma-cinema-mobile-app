@@ -17,14 +17,20 @@ import ba.etf.rma23.projekat.domain.GameData
 import ba.unsa.etf.gamespirala.R
 import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
 import ba.etf.rma23.projekat.adapter.GameListAdapter
+import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
+import ba.etf.rma23.projekat.data.repositories.GamesRepository
 import ba.etf.rma23.projekat.domain.Game
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var games: RecyclerView
     private lateinit var gamesAdapter: GameListAdapter
-    private var gamesList: List<Game> = GameData.getAll()
+    private lateinit var gamesList: List<Game>
 
     private var previousGame: Game? = null
 
@@ -51,7 +57,9 @@ class HomeFragment : Fragment() {
         }
 
         games.adapter = gamesAdapter
-        gamesAdapter.updateGames(gamesList)
+        getGames("")
+
+        searchText = view.findViewById(R.id.search_query_edittext)
 
         val intent: Intent? = activity?.intent
         if (intent?.action == Intent.ACTION_SEND && intent.type == "text/plain") {
@@ -110,6 +118,22 @@ class HomeFragment : Fragment() {
     private fun handleSendText(intent: Intent) {
         intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
             searchText.setText(it)
+
+            getGames(it)
+        }
+    }
+
+    private fun getGames(query: String) {
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+        scope.launch {
+            gamesList = if (query.isEmpty()) {
+                AccountGamesRepository.getSavedGames()
+            } else {
+                GamesRepository.getGamesByName(query)
+            }
+
+            gamesAdapter.updateGames(gamesList)
         }
     }
 

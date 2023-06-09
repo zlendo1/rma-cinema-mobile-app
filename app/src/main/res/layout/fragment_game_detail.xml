@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.GameDetailsFragment" >
+    tools:context="ba.etf.rma23.projekat.fragment.GameDetailsFragment" >
 
     <TextView
         android:id="@+id/item_title_textview"
@@ -120,5 +120,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_textview" />
+
+    <Switch
+        android:id="@+id/favorite_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/favorite"
+        app:layout_constraintEnd_toEndOf="@+id/item_title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/item_title_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
