@@ -1,6 +1,5 @@
 package ba.etf.rma23.projekat.fragment
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -21,6 +21,7 @@ import ba.etf.rma23.projekat.auxiliary.getGameById
 import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
 import ba.etf.rma23.projekat.domain.Game
 import ba.etf.rma23.projekat.domain.UserImpression
+import coil.load
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.*
 
@@ -131,11 +132,8 @@ class GameDetailsFragment : Fragment() {
         genre.text = game.genre
         description.text = game.description
 
-        val context: Context = cover.context
-        val id = context
-            .resources
-            .getIdentifier(game.coverImage, "mipmap", context.packageName)
-        cover.setImageResource(id)
+        val imageUri = game.coverImage.toUri().buildUpon().scheme("https").build()
+        cover.load(imageUri)
     }
 
     private fun showHome() {

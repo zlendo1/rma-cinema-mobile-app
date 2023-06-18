@@ -5,6 +5,9 @@ import ba.etf.rma23.projekat.auxiliary.ratingToEsrb
 import ba.etf.rma23.projekat.auxiliary.timestampToString
 import ba.etf.rma23.projekat.data.repositories.result.*
 import ba.etf.rma23.projekat.domain.Game
+import ba.etf.rma23.projekat.domain.UserImpression
+import ba.etf.rma23.projekat.domain.UserRating
+import ba.etf.rma23.projekat.domain.UserReview
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
@@ -140,8 +143,23 @@ object GamesRepository {
                 val developer = if (developerResult != null) getCompanyById(developerResult.company)?.name!! else ""
                 val publisher = if (publisherResult != null) getCompanyById(publisherResult.company)?.name!! else ""
 
+                val gameReviews = GameReviewsRepository.getReviewsForGame(it.id)
+                val userImpressions: ArrayList<UserImpression> = arrayListOf()
+
+                gameReviews.forEach {
+                    val timestamp = it.timestamp?.toLong() ?: 0
+
+                    if (it.rating != null) {
+                        userImpressions.add(UserRating("", timestamp, it.rating.toDouble()))
+                    }
+
+                    if (it.review != null) {
+                        userImpressions.add(UserReview("", timestamp, it.review))
+                    }
+                }
+
                 games.add(
-                    Game(id, title, platform, releaseDate, rating, coverImage, esrbRating, developer, publisher,genre, description, emptyList())
+                    Game(id, title, platform, releaseDate, rating, coverImage, esrbRating, developer, publisher,genre, description, userImpressions)
                 )
             }
 

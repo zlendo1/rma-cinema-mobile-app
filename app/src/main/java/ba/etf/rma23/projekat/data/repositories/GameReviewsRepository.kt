@@ -43,11 +43,12 @@ object GameReviewsRepository {
         val db = GameReviewDatabase.getInstance(context)
 
         if (AccountGamesRepository.getGameById(gameReview.igdb_id) == null) {
-            AccountGamesRepository.saveGame(
+            val savedGame = AccountGamesRepository.saveGame(
                 GamesRepository.resultToGame(
                     listOf(GamesRepository.getGameById(gameReview.igdb_id)!!)
                 ).first()
-            )
+            ) ?: throw Exception("Game not properly saved in sendReview")
+
         }
 
         try {

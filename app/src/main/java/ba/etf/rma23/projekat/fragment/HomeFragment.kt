@@ -1,12 +1,12 @@
 package ba.etf.rma23.projekat.fragment
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -57,10 +57,8 @@ class HomeFragment : Fragment() {
         getGames("")
 
         searchText = view.findViewById(R.id.search_query_edittext)
-
-        val intent: Intent? = activity?.intent
-        if (intent?.action == Intent.ACTION_SEND && intent.type == "text/plain") {
-            handleSendText(intent)
+        searchText.doOnTextChanged { text, _, _, _ ->
+            getGames(text?.toString() ?: "")
         }
 
         arguments?.let {
@@ -114,14 +112,6 @@ class HomeFragment : Fragment() {
                 navControllerDetails.navigate(action)
             }
         )
-    }
-
-    private fun handleSendText(intent: Intent) {
-        intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            searchText.setText(it)
-
-            getGames(it)
-        }
     }
 
     private fun getGames(query: String) {
