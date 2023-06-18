@@ -1,6 +1,7 @@
 package ba.etf.rma23.projekat.data.repositories
 
 import ba.etf.rma23.projekat.data.repositories.result.GameResultAccount
+import ba.etf.rma23.projekat.data.repositories.result.GameReviewResult
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -34,6 +35,18 @@ interface AccountApi {
     suspend fun postGame(
         @Path("aid") aid: String = AccountGamesRepository.account.acHash,
         @Body body: RequestBody
+    )
+
+    @GET("game/{gid}/gamereviews")
+    suspend fun getGameReviews(
+        @Path("gid") gid: Int
+    ): Response<List<GameReviewResult>>
+
+    @POST("account/{aid}/game/{gid}/gamereview")
+    suspend fun postGameReview(
+        @Path("aid") aid: String = AccountGamesRepository.account.acHash,
+        @Path("gid") gid: Int,
+        @Body gameReview: GameReviewResult
     )
 
 }
