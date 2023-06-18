@@ -21,7 +21,7 @@ object GamesRepository {
 
     suspend fun getGamesByName(name: String): List<Game> {
         return withContext(Dispatchers.IO) {
-            val body = bodyBuilder("search \"$name\"")
+            val body = bodyBuilder("search \"$name\"; limit 20")
             val response = IGDBApiConfig.retrofit.getGames(body)
 
             if (response.isSuccessful) {
