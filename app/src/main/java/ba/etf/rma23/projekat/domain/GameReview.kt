@@ -5,9 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class GameReview(
-    @PrimaryKey val igdb_id: Int,
     val rating: Int?,
     val review: String?,
-    val timestamp: String?,
-    var online: Boolean
+    @PrimaryKey val igdb_id: Int,
+    var online: Boolean,
+    val student: String?,
+    val timestamp: String?
 )

@@ -86,8 +86,8 @@ class GameDetailsFragment : Fragment() {
         favoriteSwitch = view.findViewById(R.id.favorite_switch)
         favoriteSwitch.isChecked = isFavorite(game)
 
-        favoriteSwitch.setOnClickListener {
-            favoriteGameSet()
+        favoriteSwitch.setOnCheckedChangeListener { _, isChecked ->
+            favoriteGameSet(isChecked)
         }
 
         impressions = view.findViewById(R.id.impressions_list)
@@ -157,21 +157,19 @@ class GameDetailsFragment : Fragment() {
         return result
     }
 
-    private fun favoriteGameSet() {
+    private fun favoriteGameSet(isChecked: Boolean) {
         runBlocking {
-            if (favoriteSwitch.isChecked) {
+            if (isChecked) {
                 if (!AccountGamesRepository.removeGame(game.id)) {
                     throw Exception("Game not properly removed at details switch")
                 }
-
-                favoriteSwitch.isChecked = false
             } else {
                 if (AccountGamesRepository.saveGame(game) == null) {
                     throw Exception("Game not properly added at details switch")
                 }
-
-                favoriteSwitch.isChecked = true
             }
+
+            favoriteSwitch.isChecked = isChecked
         }
     }
 }

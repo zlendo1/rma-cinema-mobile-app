@@ -1,7 +1,7 @@
 package ba.etf.rma23.projekat.data.repositories
 
 import ba.etf.rma23.projekat.auxiliary.isAgeSafe
-import ba.etf.rma23.projekat.data.repositories.result.GameResultAccount
+import ba.etf.rma23.projekat.data.repositories.result.GameAccountResult
 import ba.etf.rma23.projekat.domain.Account
 import ba.etf.rma23.projekat.domain.Game
 import ba.unsa.etf.gamespirala.BuildConfig
@@ -122,7 +122,7 @@ object AccountGamesRepository {
         }
     }
 
-    private suspend fun resultToGame(gameResults: List<GameResultAccount>): List<Game> {
+    private suspend fun resultToGame(gameResults: List<GameAccountResult>): List<Game> {
         return withContext(Dispatchers.IO) {
             val games: ArrayList<Game> = arrayListOf()
 

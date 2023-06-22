@@ -25,7 +25,7 @@ object GameReviewsRepository {
                 AccountApiConfig.retrofit.postGameReview(
                     AccountGamesRepository.account.acHash,
                     review.igdb_id,
-                    GameReviewResult(review.rating, review.review, review.timestamp)
+                    GameReviewResult(review.rating, review.review, review.timestamp, review.student)
                 )
 
                 review.online = true
@@ -55,7 +55,7 @@ object GameReviewsRepository {
             AccountApiConfig.retrofit.postGameReview(
                 AccountGamesRepository.account.acHash,
                 gameReview.igdb_id,
-                GameReviewResult(gameReview.rating, gameReview.review, gameReview.timestamp)
+                GameReviewResult(gameReview.rating, gameReview.review, gameReview.timestamp, gameReview.student)
             )
 
             return@withContext true
@@ -86,7 +86,7 @@ object GameReviewsRepository {
 
         gameReviewResults.forEach {
             gameReviews.add(
-                GameReview(igdb_id, it.rating, it.review, it.timestamp, true)
+                GameReview(it.rating, it.review, igdb_id, true, it.student, it.timestamp)
             )
         }
 

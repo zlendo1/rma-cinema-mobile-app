@@ -148,13 +148,14 @@ object GamesRepository {
 
                 gameReviews.forEach {
                     val timestamp = it.timestamp?.toLong() ?: 0
+                    val username = it.student ?: ""
 
                     if (it.rating != null) {
-                        userImpressions.add(UserRating("", timestamp, it.rating.toDouble()))
+                        userImpressions.add(UserRating(username, timestamp, it.rating.toDouble()))
                     }
 
                     if (it.review != null) {
-                        userImpressions.add(UserReview("", timestamp, it.review))
+                        userImpressions.add(UserReview(username, timestamp, it.review))
                     }
                 }
 
