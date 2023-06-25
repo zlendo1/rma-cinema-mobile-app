@@ -10,15 +10,15 @@ import ba.etf.rma23.projekat.domain.GameReview
 interface GameReviewDao {
 
     @Query("SELECT * FROM gamereview")
-    suspend fun getAll(): List<GameReview>
+    fun getAll(): List<GameReview>
 
     @Query("SELECT * FROM gamereview WHERE online = false")
-    suspend fun getOffline(): List<GameReview>
+    fun getOffline(): List<GameReview>
 
     @Update
-    suspend fun update(gameReview: GameReview)
+    fun update(gameReview: GameReview)
 
     @Insert
-    suspend fun insertAll(vararg gameReview: GameReview)
+    fun insertAll(vararg gameReview: GameReview)
 
 }

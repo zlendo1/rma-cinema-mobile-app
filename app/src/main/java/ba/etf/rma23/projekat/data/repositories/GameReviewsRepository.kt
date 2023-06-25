@@ -22,6 +22,8 @@ object GameReviewsRepository {
 
         offlineReviews.forEach { review ->
             try {
+                gameCheckAndSave(review.igdb_id)
+
                 AccountApiConfig.retrofit.postGameReview(
                     AccountGamesRepository.account.acHash,
                     review.igdb_id,
@@ -42,16 +44,9 @@ object GameReviewsRepository {
     suspend fun sendReview(context: Context, gameReview: GameReview): Boolean = withContext(Dispatchers.IO) {
         val db = GameReviewDatabase.getInstance(context)
 
-        if (AccountGamesRepository.getGameById(gameReview.igdb_id) == null) {
-            val savedGame = AccountGamesRepository.saveGame(
-                GamesRepository.resultToGame(
-                    listOf(GamesRepository.getGameById(gameReview.igdb_id)!!)
-                ).first()
-            ) ?: throw Exception("Game not properly saved in sendReview")
-
-        }
-
         try {
+            gameCheckAndSave(gameReview.igdb_id)
+
             AccountApiConfig.retrofit.postGameReview(
                 AccountGamesRepository.account.acHash,
                 gameReview.igdb_id,
@@ -91,6 +86,16 @@ object GameReviewsRepository {
         }
 
         return gameReviews
+    }
+
+    private suspend fun gameCheckAndSave(gameId: Int) {
+        if (AccountGamesRepository.getGameById(gameId) == null) {
+            AccountGamesRepository.saveGame(
+                GamesRepository.resultToGame(
+                    listOf(GamesRepository.getGameById(gameId)!!)
+                ).first()
+            ) ?: throw Exception("Game not properly saved in sendReview")
+        }
     }
 
 }

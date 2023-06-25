@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import ba.etf.rma23.projekat.domain.GameReview
 
-@Database(entities = [GameReview::class], version = 1)
+@Database(entities = [GameReview::class], version = 1, exportSchema = false)
 abstract class GameReviewDatabase : RoomDatabase() {
 
     abstract fun gameReviewDao(): GameReviewDao

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.widget.doOnTextChanged
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
     private var previousGame: Game? = null
 
     private lateinit var searchText: EditText
+    private lateinit var searchButton: ImageButton
 
     private lateinit var navController: NavController
     private lateinit var configuration: Configuration
@@ -57,8 +58,10 @@ class HomeFragment : Fragment() {
         getGames("")
 
         searchText = view.findViewById(R.id.search_query_edittext)
-        searchText.doOnTextChanged { text, _, _, _ ->
-            getGames(text?.toString() ?: "")
+
+        searchButton = view.findViewById(R.id.search_button)
+        searchButton.setOnClickListener {
+            getGames(searchText.text.toString())
         }
 
         arguments?.let {
@@ -118,13 +121,15 @@ class HomeFragment : Fragment() {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
 
         scope.launch {
-            gamesList = if (query.isEmpty()) {
-                AccountGamesRepository.getSavedGames()
-            } else {
-                GamesRepository.getGamesByName(query)
-            }
+            try {
+                gamesList = if (query.isEmpty()) {
+                    AccountGamesRepository.getSavedGames()
+                } else {
+                    GamesRepository.getGamesByName(query)
+                }
 
-            gamesAdapter.updateGames(gamesList)
+                gamesAdapter.updateGames(gamesList)
+            } catch (_: Exception) {}
         }
     }
 

@@ -160,12 +160,12 @@ class GameDetailsFragment : Fragment() {
     private fun favoriteGameSet(isChecked: Boolean) {
         runBlocking {
             if (isChecked) {
-                if (!AccountGamesRepository.removeGame(game.id)) {
-                    throw Exception("Game not properly removed at details switch")
-                }
-            } else {
                 if (AccountGamesRepository.saveGame(game) == null) {
                     throw Exception("Game not properly added at details switch")
+                }
+            } else {
+                if (!AccountGamesRepository.removeGame(game.id)) {
+                    throw Exception("Game not properly removed at details switch")
                 }
             }
 

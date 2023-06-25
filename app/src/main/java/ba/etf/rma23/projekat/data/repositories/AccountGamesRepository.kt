@@ -53,20 +53,7 @@ object AccountGamesRepository {
     }
 
     suspend fun getGameById(id: Int): Game? {
-        return withContext(Dispatchers.IO) {
-            val response = AccountApiConfig.retrofit.getGameById(getHash(), id)
-
-            if (response.isSuccessful) {
-                val result = response.body()!!
-                val games = resultToGame(result)
-
-                if (games.isNotEmpty()) {
-                    return@withContext games.first()
-                }
-            }
-
-            return@withContext null
-        }
+        return getSavedGames().find { return@find it.id == id }
     }
 
     suspend fun getGamesContainingString(query: String): List<Game> {
