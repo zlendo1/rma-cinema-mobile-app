@@ -3,6 +3,20 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
+        <entry key="-1672176104">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-1647725529">
           <value>
             <AndroidTestResultsTableState>
@@ -96,6 +110,21 @@
                   <entry key="Duration" value="90" />
                   <entry key="RF8T11GB44Z" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-A325F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1378719772">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="RF8T11GB44Z" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung" value="120" />
                   <entry key="samsung&#10; SM-A325F" value="120" />
                 </map>
               </option>
