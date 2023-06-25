@@ -86,7 +86,7 @@ class DBTest {
                 null,
                 SQLiteDatabase.OPEN_READONLY
             )
-            db.rawQuery("DELETE FROM gamereview", null)
+            db.rawQuery("DELETE FROM gamereview WHERE 1 = 1", null)
             obrisi()
         }
     }
