@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -19,11 +22,12 @@ import ba.etf.rma23.projekat.activity.OrientationChange.onOrientation
 import ba.etf.rma23.projekat.adapter.ImpressionListAdapter
 import ba.etf.rma23.projekat.auxiliary.getGameById
 import ba.etf.rma23.projekat.data.repositories.AccountGamesRepository
-import ba.etf.rma23.projekat.domain.Game
-import ba.etf.rma23.projekat.domain.UserImpression
+import ba.etf.rma23.projekat.data.repositories.GameReviewsRepository
+import ba.etf.rma23.projekat.domain.*
 import coil.load
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.*
+import java.time.Instant
 
 class GameDetailsFragment : Fragment() {
 
@@ -39,11 +43,15 @@ class GameDetailsFragment : Fragment() {
     private lateinit var genre: TextView
     private lateinit var description: TextView
 
+    private lateinit var sendImpressionButton: Button
+    private lateinit var reviewEditText: EditText
+    private lateinit var ratingBar: RatingBar
+
     private lateinit var favoriteSwitch: Switch
 
     private lateinit var impressions: RecyclerView
     private lateinit var impressionsAdapter: ImpressionListAdapter
-    private lateinit var impressionsList: List<UserImpression>
+    private lateinit var impressionsList: ArrayList<UserImpression>
 
     private lateinit var navController: NavController
     private lateinit var configuration: Configuration
@@ -83,6 +91,10 @@ class GameDetailsFragment : Fragment() {
         genre = view.findViewById(R.id.genre_textview)
         description = view.findViewById(R.id.description_textview)
 
+        sendImpressionButton = view.findViewById(R.id.send_impression_button)
+        reviewEditText = view.findViewById(R.id.review_edittext)
+        ratingBar = view.findViewById(R.id.rating_bar)
+
         favoriteSwitch = view.findViewById(R.id.favorite_switch)
         favoriteSwitch.isChecked = isFavorite(game)
 
@@ -97,7 +109,7 @@ class GameDetailsFragment : Fragment() {
             false
         )
 
-        impressionsList = game.userImpressions
+        impressionsList = game.userImpressions as ArrayList<UserImpression>
 
         impressionsAdapter = ImpressionListAdapter(arrayListOf())
 
@@ -115,6 +127,10 @@ class GameDetailsFragment : Fragment() {
 
                 else -> return@setOnItemSelectedListener false
             }
+        }
+
+        sendImpressionButton.setOnClickListener {
+            sendImpression()
         }
 
         populateDetails()
@@ -170,6 +186,25 @@ class GameDetailsFragment : Fragment() {
             }
 
             favoriteSwitch.isChecked = isChecked
+        }
+    }
+
+    private fun sendImpression() {
+        val review = reviewEditText.text.toString()
+        val rating = ratingBar.rating.toInt()
+        val timestamp = Instant.EPOCH.epochSecond
+
+        val gameReview = GameReview(rating, review, game.id, true, "user", timestamp.toString())
+
+        impressionsList.add(UserRating("user", timestamp, rating.toDouble()))
+        impressionsList.add(UserReview("user", timestamp, review))
+
+        impressionsAdapter.updateImpressions(impressionsList)
+
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+        scope.launch {
+            GameReviewsRepository.sendReview(context!!, gameReview)
         }
     }
 }
