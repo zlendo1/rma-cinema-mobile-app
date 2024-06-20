@@ -13,10 +13,6 @@ Here're some of the project's best features:
 *   View and add game reviews
 *   Add or remove favourite games for individual user
 
-<h2>🛠️ Installation Steps:</h2>
-
-  
-  
 <h2>💻 Built with</h2>
 
 Technologies used in the project:
